@@ -7,7 +7,7 @@
       "name": "sir",
       "source": "./sir",
       "description": "Check your $SIR balance, get second opinions from GPT, Gemini and DeepSeek, see usage and referral earnings, and switch Claude Code's billing to $SIR.",
-      "version": "0.1.0"
+      "version": "0.2.0"
     }
   ]
 }

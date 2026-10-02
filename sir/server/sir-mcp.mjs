@@ -4721,11 +4721,11 @@ var require_core = __commonJS({
     Ajv2.ValidationError = validation_error_1.default;
     Ajv2.MissingRefError = ref_error_1.default;
     exports.default = Ajv2;
-    function checkOptions(checkOpts, options, msg, log = "error") {
-      for (const key in checkOpts) {
+    function checkOptions(checkOpts2, options, msg, log = "error") {
+      for (const key in checkOpts2) {
         const opt = key;
         if (opt in options)
-          this.logger[log](`${msg}: option ${key}. ${checkOpts[opt]}`);
+          this.logger[log](`${msg}: option ${key}. ${checkOpts2[opt]}`);
       }
     }
     function getSchEnv(keyRef) {
@@ -7209,7 +7209,7 @@ var require_dist = __commonJS({
 // ../../node_modules/tweetnacl/nacl-fast.js
 var require_nacl_fast = __commonJS({
   "../../node_modules/tweetnacl/nacl-fast.js"(exports, module) {
-    (function(nacl2) {
+    (function(nacl3) {
       "use strict";
       var gf = function(init) {
         var i, r = new Float64Array(16);
@@ -9168,7 +9168,7 @@ var require_nacl_fast = __commonJS({
         return n;
       }
       var crypto_secretbox_KEYBYTES = 32, crypto_secretbox_NONCEBYTES = 24, crypto_secretbox_ZEROBYTES = 32, crypto_secretbox_BOXZEROBYTES = 16, crypto_scalarmult_BYTES = 32, crypto_scalarmult_SCALARBYTES = 32, crypto_box_PUBLICKEYBYTES = 32, crypto_box_SECRETKEYBYTES = 32, crypto_box_BEFORENMBYTES = 32, crypto_box_NONCEBYTES = crypto_secretbox_NONCEBYTES, crypto_box_ZEROBYTES = crypto_secretbox_ZEROBYTES, crypto_box_BOXZEROBYTES = crypto_secretbox_BOXZEROBYTES, crypto_sign_BYTES = 64, crypto_sign_PUBLICKEYBYTES = 32, crypto_sign_SECRETKEYBYTES = 64, crypto_sign_SEEDBYTES = 32, crypto_hash_BYTES = 64;
-      nacl2.lowlevel = {
+      nacl3.lowlevel = {
         crypto_core_hsalsa20,
         crypto_stream_xor,
         crypto_stream,
@@ -9241,12 +9241,12 @@ var require_nacl_fast = __commonJS({
       function cleanup(arr) {
         for (var i = 0; i < arr.length; i++) arr[i] = 0;
       }
-      nacl2.randomBytes = function(n) {
+      nacl3.randomBytes = function(n) {
         var b = new Uint8Array(n);
         randombytes(b, n);
         return b;
       };
-      nacl2.secretbox = function(msg, nonce, key) {
+      nacl3.secretbox = function(msg, nonce, key) {
         checkArrayTypes(msg, nonce, key);
         checkLengths(key, nonce);
         var m = new Uint8Array(crypto_secretbox_ZEROBYTES + msg.length);
@@ -9255,7 +9255,7 @@ var require_nacl_fast = __commonJS({
         crypto_secretbox(c, m, m.length, nonce, key);
         return c.subarray(crypto_secretbox_BOXZEROBYTES);
       };
-      nacl2.secretbox.open = function(box, nonce, key) {
+      nacl3.secretbox.open = function(box, nonce, key) {
         checkArrayTypes(box, nonce, key);
         checkLengths(key, nonce);
         var c = new Uint8Array(crypto_secretbox_BOXZEROBYTES + box.length);
@@ -9265,10 +9265,10 @@ var require_nacl_fast = __commonJS({
         if (crypto_secretbox_open(m, c, c.length, nonce, key) !== 0) return null;
         return m.subarray(crypto_secretbox_ZEROBYTES);
       };
-      nacl2.secretbox.keyLength = crypto_secretbox_KEYBYTES;
-      nacl2.secretbox.nonceLength = crypto_secretbox_NONCEBYTES;
-      nacl2.secretbox.overheadLength = crypto_secretbox_BOXZEROBYTES;
-      nacl2.scalarMult = function(n, p) {
+      nacl3.secretbox.keyLength = crypto_secretbox_KEYBYTES;
+      nacl3.secretbox.nonceLength = crypto_secretbox_NONCEBYTES;
+      nacl3.secretbox.overheadLength = crypto_secretbox_BOXZEROBYTES;
+      nacl3.scalarMult = function(n, p) {
         checkArrayTypes(n, p);
         if (n.length !== crypto_scalarmult_SCALARBYTES) throw new Error("bad n size");
         if (p.length !== crypto_scalarmult_BYTES) throw new Error("bad p size");
@@ -9276,39 +9276,39 @@ var require_nacl_fast = __commonJS({
         crypto_scalarmult(q, n, p);
         return q;
       };
-      nacl2.scalarMult.base = function(n) {
+      nacl3.scalarMult.base = function(n) {
         checkArrayTypes(n);
         if (n.length !== crypto_scalarmult_SCALARBYTES) throw new Error("bad n size");
         var q = new Uint8Array(crypto_scalarmult_BYTES);
         crypto_scalarmult_base(q, n);
         return q;
       };
-      nacl2.scalarMult.scalarLength = crypto_scalarmult_SCALARBYTES;
-      nacl2.scalarMult.groupElementLength = crypto_scalarmult_BYTES;
-      nacl2.box = function(msg, nonce, publicKey, secretKey) {
-        var k = nacl2.box.before(publicKey, secretKey);
-        return nacl2.secretbox(msg, nonce, k);
+      nacl3.scalarMult.scalarLength = crypto_scalarmult_SCALARBYTES;
+      nacl3.scalarMult.groupElementLength = crypto_scalarmult_BYTES;
+      nacl3.box = function(msg, nonce, publicKey, secretKey) {
+        var k = nacl3.box.before(publicKey, secretKey);
+        return nacl3.secretbox(msg, nonce, k);
       };
-      nacl2.box.before = function(publicKey, secretKey) {
+      nacl3.box.before = function(publicKey, secretKey) {
         checkArrayTypes(publicKey, secretKey);
         checkBoxLengths(publicKey, secretKey);
         var k = new Uint8Array(crypto_box_BEFORENMBYTES);
         crypto_box_beforenm(k, publicKey, secretKey);
         return k;
       };
-      nacl2.box.after = nacl2.secretbox;
-      nacl2.box.open = function(msg, nonce, publicKey, secretKey) {
-        var k = nacl2.box.before(publicKey, secretKey);
-        return nacl2.secretbox.open(msg, nonce, k);
+      nacl3.box.after = nacl3.secretbox;
+      nacl3.box.open = function(msg, nonce, publicKey, secretKey) {
+        var k = nacl3.box.before(publicKey, secretKey);
+        return nacl3.secretbox.open(msg, nonce, k);
       };
-      nacl2.box.open.after = nacl2.secretbox.open;
-      nacl2.box.keyPair = function() {
+      nacl3.box.open.after = nacl3.secretbox.open;
+      nacl3.box.keyPair = function() {
         var pk = new Uint8Array(crypto_box_PUBLICKEYBYTES);
         var sk = new Uint8Array(crypto_box_SECRETKEYBYTES);
         crypto_box_keypair(pk, sk);
         return { publicKey: pk, secretKey: sk };
       };
-      nacl2.box.keyPair.fromSecretKey = function(secretKey) {
+      nacl3.box.keyPair.fromSecretKey = function(secretKey) {
         checkArrayTypes(secretKey);
         if (secretKey.length !== crypto_box_SECRETKEYBYTES)
           throw new Error("bad secret key size");
@@ -9316,12 +9316,12 @@ var require_nacl_fast = __commonJS({
         crypto_scalarmult_base(pk, secretKey);
         return { publicKey: pk, secretKey: new Uint8Array(secretKey) };
       };
-      nacl2.box.publicKeyLength = crypto_box_PUBLICKEYBYTES;
-      nacl2.box.secretKeyLength = crypto_box_SECRETKEYBYTES;
-      nacl2.box.sharedKeyLength = crypto_box_BEFORENMBYTES;
-      nacl2.box.nonceLength = crypto_box_NONCEBYTES;
-      nacl2.box.overheadLength = nacl2.secretbox.overheadLength;
-      nacl2.sign = function(msg, secretKey) {
+      nacl3.box.publicKeyLength = crypto_box_PUBLICKEYBYTES;
+      nacl3.box.secretKeyLength = crypto_box_SECRETKEYBYTES;
+      nacl3.box.sharedKeyLength = crypto_box_BEFORENMBYTES;
+      nacl3.box.nonceLength = crypto_box_NONCEBYTES;
+      nacl3.box.overheadLength = nacl3.secretbox.overheadLength;
+      nacl3.sign = function(msg, secretKey) {
         checkArrayTypes(msg, secretKey);
         if (secretKey.length !== crypto_sign_SECRETKEYBYTES)
           throw new Error("bad secret key size");
@@ -9329,7 +9329,7 @@ var require_nacl_fast = __commonJS({
         crypto_sign(signedMsg, msg, msg.length, secretKey);
         return signedMsg;
       };
-      nacl2.sign.open = function(signedMsg, publicKey) {
+      nacl3.sign.open = function(signedMsg, publicKey) {
         checkArrayTypes(signedMsg, publicKey);
         if (publicKey.length !== crypto_sign_PUBLICKEYBYTES)
           throw new Error("bad public key size");
@@ -9340,13 +9340,13 @@ var require_nacl_fast = __commonJS({
         for (var i = 0; i < m.length; i++) m[i] = tmp[i];
         return m;
       };
-      nacl2.sign.detached = function(msg, secretKey) {
-        var signedMsg = nacl2.sign(msg, secretKey);
+      nacl3.sign.detached = function(msg, secretKey) {
+        var signedMsg = nacl3.sign(msg, secretKey);
         var sig = new Uint8Array(crypto_sign_BYTES);
         for (var i = 0; i < sig.length; i++) sig[i] = signedMsg[i];
         return sig;
       };
-      nacl2.sign.detached.verify = function(msg, sig, publicKey) {
+      nacl3.sign.detached.verify = function(msg, sig, publicKey) {
         checkArrayTypes(msg, sig, publicKey);
         if (sig.length !== crypto_sign_BYTES)
           throw new Error("bad signature size");
@@ -9359,13 +9359,13 @@ var require_nacl_fast = __commonJS({
         for (i = 0; i < msg.length; i++) sm[i + crypto_sign_BYTES] = msg[i];
         return crypto_sign_open(m, sm, sm.length, publicKey) >= 0;
       };
-      nacl2.sign.keyPair = function() {
+      nacl3.sign.keyPair = function() {
         var pk = new Uint8Array(crypto_sign_PUBLICKEYBYTES);
         var sk = new Uint8Array(crypto_sign_SECRETKEYBYTES);
         crypto_sign_keypair(pk, sk);
         return { publicKey: pk, secretKey: sk };
       };
-      nacl2.sign.keyPair.fromSecretKey = function(secretKey) {
+      nacl3.sign.keyPair.fromSecretKey = function(secretKey) {
         checkArrayTypes(secretKey);
         if (secretKey.length !== crypto_sign_SECRETKEYBYTES)
           throw new Error("bad secret key size");
@@ -9373,7 +9373,7 @@ var require_nacl_fast = __commonJS({
         for (var i = 0; i < pk.length; i++) pk[i] = secretKey[32 + i];
         return { publicKey: pk, secretKey: new Uint8Array(secretKey) };
       };
-      nacl2.sign.keyPair.fromSeed = function(seed) {
+      nacl3.sign.keyPair.fromSeed = function(seed) {
         checkArrayTypes(seed);
         if (seed.length !== crypto_sign_SEEDBYTES)
           throw new Error("bad seed size");
@@ -9383,31 +9383,31 @@ var require_nacl_fast = __commonJS({
         crypto_sign_keypair(pk, sk, true);
         return { publicKey: pk, secretKey: sk };
       };
-      nacl2.sign.publicKeyLength = crypto_sign_PUBLICKEYBYTES;
-      nacl2.sign.secretKeyLength = crypto_sign_SECRETKEYBYTES;
-      nacl2.sign.seedLength = crypto_sign_SEEDBYTES;
-      nacl2.sign.signatureLength = crypto_sign_BYTES;
-      nacl2.hash = function(msg) {
+      nacl3.sign.publicKeyLength = crypto_sign_PUBLICKEYBYTES;
+      nacl3.sign.secretKeyLength = crypto_sign_SECRETKEYBYTES;
+      nacl3.sign.seedLength = crypto_sign_SEEDBYTES;
+      nacl3.sign.signatureLength = crypto_sign_BYTES;
+      nacl3.hash = function(msg) {
         checkArrayTypes(msg);
         var h = new Uint8Array(crypto_hash_BYTES);
         crypto_hash(h, msg, msg.length);
         return h;
       };
-      nacl2.hash.hashLength = crypto_hash_BYTES;
-      nacl2.verify = function(x, y) {
+      nacl3.hash.hashLength = crypto_hash_BYTES;
+      nacl3.verify = function(x, y) {
         checkArrayTypes(x, y);
         if (x.length === 0 || y.length === 0) return false;
         if (x.length !== y.length) return false;
         return vn(x, 0, y, 0, x.length) === 0 ? true : false;
       };
-      nacl2.setPRNG = function(fn) {
+      nacl3.setPRNG = function(fn) {
         randombytes = fn;
       };
       (function() {
         var crypto = typeof self !== "undefined" ? self.crypto || self.msCrypto : null;
         if (crypto && crypto.getRandomValues) {
           var QUOTA = 65536;
-          nacl2.setPRNG(function(x, n) {
+          nacl3.setPRNG(function(x, n) {
             var i, v = new Uint8Array(n);
             for (i = 0; i < n; i += QUOTA) {
               crypto.getRandomValues(v.subarray(i, i + Math.min(n - i, QUOTA)));
@@ -9418,7 +9418,7 @@ var require_nacl_fast = __commonJS({
         } else if (typeof __require !== "undefined") {
           crypto = __require("crypto");
           if (crypto && crypto.randomBytes) {
-            nacl2.setPRNG(function(x, n) {
+            nacl3.setPRNG(function(x, n) {
               var i, v = crypto.randomBytes(n);
               for (i = 0; i < n; i++) x[i] = v[i];
               cleanup(v);
@@ -23703,6 +23703,39 @@ var SirClient = class {
   referrals() {
     return this.call("/referrals").then((r) => r.json);
   }
+  points() {
+    return this.call("/points").then((r) => r.json);
+  }
+  tools() {
+    return this.call("/tools", {}, false).then((r) => r.json.data);
+  }
+  tool(name, args) {
+    return this.call(`/tools/${name}`, { method: "POST", body: JSON.stringify(args) }).then((r) => r.json);
+  }
+  attestation(nonce) {
+    return this.call(`/private/attestation?nonce=${nonce}`, {}, false).then((r) => r.json);
+  }
+  receipt(id) {
+    return this.call(`/private/receipts/${encodeURIComponent(id)}`).then((r) => r.json);
+  }
+  /** A private-mode completion: the raw response bytes and the receipt id, for verification. */
+  async askPrivate(p) {
+    if (!this.o.apiKey) throw new SirError("No API key. Set SIR_API_KEY.", 401);
+    const messages = [...p.system ? [{ role: "system", content: p.system }] : [], { role: "user", content: p.prompt }];
+    const r = await this.f(`${this.v1}/chat/completions`, {
+      method: "POST",
+      headers: { "content-type": "application/json", authorization: `Bearer ${this.o.apiKey}` },
+      body: JSON.stringify({ model: p.model ?? "sir-private", messages, max_tokens: p.maxTokens ?? 2e3 })
+    });
+    const raw = await r.text();
+    let json = {};
+    try {
+      json = JSON.parse(raw);
+    } catch {
+    }
+    if (!r.ok) throw new SirError(json?.error?.message ?? `Request failed (${r.status})`, r.status);
+    return { raw, text: String(json?.choices?.[0]?.message?.content ?? ""), usage: json?.usage ?? null, receiptId: r.headers.get("x-sir-receipt") };
+  }
   async ask(p) {
     const messages = [...p.system ? [{ role: "system", content: p.system }] : [], { role: "user", content: p.prompt }];
     const { json, headers } = await this.call("/chat/completions", {
@@ -23956,10 +23989,469 @@ function walletKeyFromFile(path, epoch = 0) {
   return walletKeyFromSecret(Uint8Array.from(arr), epoch);
 }
 
+// ../shared/src/receipt.ts
+var import_tweetnacl2 = __toESM(require_nacl_fast(), 1);
+
+// ../../node_modules/@noble/hashes/_u64.js
+var fromNumH = (n) => n / 2 ** 32 | 0;
+var fromNumL = (n) => n >>> 0;
+function setU64FromNum(view, byteOffset, n, isLE) {
+  const h = fromNumH(n);
+  const l = fromNumL(n);
+  view.setUint32(byteOffset, isLE ? l : h, isLE);
+  view.setUint32(byteOffset + 4, isLE ? h : l, isLE);
+}
+
+// ../../node_modules/@noble/hashes/utils.js
+function isBytes(a) {
+  return a instanceof Uint8Array || ArrayBuffer.isView(a) && a.constructor.name === "Uint8Array" && "BYTES_PER_ELEMENT" in a && a.BYTES_PER_ELEMENT === 1;
+}
+var atitle = (title) => title ? `"${title}" ` : "";
+function anumber(n, title = "") {
+  if (typeof n !== "number")
+    throw new TypeError(atitle(title) + "expected number, got " + typeof n);
+  if (!Number.isSafeInteger(n) || n < 0)
+    throw new RangeError(atitle(title) + "expected integer >= 0, got " + n);
+  return n;
+}
+function abytes(value, length, title = "") {
+  if (isBytes(value) && (length === void 0 || value.length === length))
+    return value;
+  if (length !== void 0)
+    anumber(length, "length");
+  const bytes = isBytes(value);
+  const ofLen = length !== void 0 ? ` of length ${length}` : "";
+  const got = bytes ? `length=${value.length}` : `type=${typeof value}`;
+  const message = atitle(title) + "expected Uint8Array" + ofLen + ", got " + got;
+  if (!bytes)
+    throw new TypeError(message);
+  throw new RangeError(message);
+}
+var aobject = (value, label) => {
+  if (value === null || typeof value !== "object" || Array.isArray(value))
+    throw new TypeError((label === "object" ? "" : `"${label}" `) + "expected object, got type=" + typeof value);
+};
+var aopts = (value, label) => {
+  aobject(value, label);
+  const proto = Object.getPrototypeOf(value);
+  if (proto !== Object.prototype && proto !== null)
+    throw new TypeError(`"${label}" expected plain object`);
+  if (Object.hasOwn(value, "__proto__"))
+    throw new TypeError(`"${label}.__proto__" is not allowed`);
+};
+function aexists(instance, checkFinished = true) {
+  if (instance.destroyed)
+    throw new Error("hash was destroyed");
+  if (checkFinished && instance.finished)
+    throw new Error("digest() was already called");
+}
+function aoutput(out, instance) {
+  abytes(out, void 0, "output");
+  const min = instance.outputLen;
+  if (!(out.length >= min)) {
+    throw new RangeError('"output" expected length >= ' + min);
+  }
+}
+function clean(...arrays) {
+  for (let i = 0; i < arrays.length; i++) {
+    arrays[i].fill(0);
+  }
+}
+function createView(arr) {
+  return new DataView(arr.buffer, arr.byteOffset, arr.byteLength);
+}
+function rotr(word, shift) {
+  return word << 32 - shift | word >>> shift;
+}
+var hasHexBuiltin = /* @__PURE__ */ (() => (
+  // @ts-ignore
+  typeof Uint8Array.from([]).toHex === "function" && typeof Uint8Array.fromHex === "function"
+))();
+var hexes = /* @__PURE__ */ Array.from({ length: 256 }, (_, i) => i.toString(16).padStart(2, "0"));
+function bytesToHex(bytes) {
+  abytes(bytes);
+  if (hasHexBuiltin)
+    return bytes.toHex();
+  let hex = "";
+  for (let i = 0; i < bytes.length; i++) {
+    hex += hexes[bytes[i]];
+  }
+  return hex;
+}
+function checkOpts(defaults, opts, title = "opts") {
+  aopts(defaults, "defaults");
+  if (opts !== void 0)
+    aopts(opts, title);
+  const merged = Object.assign(/* @__PURE__ */ Object.create(null), defaults, opts);
+  return merged;
+}
+function createHasher(hashCons, info = {}) {
+  if (typeof hashCons !== "function")
+    throw new TypeError('"hashCons" expected function, got type=' + typeof hashCons);
+  info = checkOpts({}, info, "info");
+  const hashC = (msg, opts) => hashCons(opts).update(msg).digest();
+  const tmp = hashCons(void 0);
+  hashC.outputLen = tmp.outputLen;
+  hashC.blockLen = tmp.blockLen;
+  hashC.canXOF = tmp.canXOF;
+  hashC.create = (opts) => hashCons(opts);
+  Object.assign(hashC, info);
+  return Object.freeze(hashC);
+}
+var oidNist = (suffix) => ({
+  // Current NIST hashAlgs suffixes used here fit in one DER subidentifier octet.
+  // Larger suffix values would need base-128 OID encoding and a different length byte.
+  oid: Uint8Array.from([6, 9, 96, 134, 72, 1, 101, 3, 4, 2, suffix])
+});
+
+// ../../node_modules/@noble/hashes/_md.js
+function Chi(a, b, c) {
+  return a & b ^ ~a & c;
+}
+function Maj(a, b, c) {
+  return a & b ^ a & c ^ b & c;
+}
+var HashMD = class {
+  blockLen;
+  outputLen;
+  canXOF = false;
+  padOffset;
+  isLE;
+  // For partial updates less than block size
+  buffer;
+  view;
+  finished = false;
+  length = 0;
+  pos = 0;
+  destroyed = false;
+  constructor(blockLen, outputLen, padOffset, isLE) {
+    this.blockLen = blockLen;
+    this.outputLen = outputLen;
+    this.padOffset = padOffset;
+    this.isLE = isLE;
+    this.buffer = new Uint8Array(blockLen);
+    this.view = createView(this.buffer);
+  }
+  update(data) {
+    aexists(this);
+    abytes(data);
+    const { view, buffer, blockLen } = this;
+    const len = data.length;
+    let processed = false;
+    for (let pos = 0; pos < len; ) {
+      const take = Math.min(blockLen - this.pos, len - pos);
+      if (take === blockLen) {
+        const dataView = createView(data);
+        for (; blockLen <= len - pos; pos += blockLen)
+          this.process(dataView, pos);
+        processed = true;
+        continue;
+      }
+      buffer.set(pos === 0 && take === len ? data : data.subarray(pos, pos + take), this.pos);
+      this.pos += take;
+      pos += take;
+      if (this.pos === blockLen) {
+        this.process(view, 0);
+        this.pos = 0;
+        processed = true;
+      }
+    }
+    this.length += data.length;
+    if (processed)
+      this.roundClean();
+    return this;
+  }
+  digestInto(out) {
+    aexists(this);
+    aoutput(out, this);
+    this.finished = true;
+    const { buffer, view, blockLen, isLE } = this;
+    let { pos } = this;
+    buffer[pos++] = 128;
+    buffer.fill(0, pos);
+    if (this.padOffset > blockLen - pos) {
+      this.process(view, 0);
+      buffer.fill(0);
+    }
+    setU64FromNum(view, blockLen - 8, this.length * 8, isLE);
+    this.process(view, 0);
+    this.roundClean();
+    const oview = out === buffer ? view : createView(out);
+    const len = this.outputLen;
+    const outLen = len / 4;
+    const state = this.get();
+    if (len % 4 || outLen > state.length)
+      throw new Error("invalid outputLen");
+    for (let i = 0; i < outLen; i++)
+      oview.setUint32(4 * i, state[i], isLE);
+  }
+  digest() {
+    const { buffer, outputLen } = this;
+    this.digestInto(buffer);
+    const res = buffer.slice(0, outputLen);
+    this.destroy();
+    return res;
+  }
+  _cloneIntoMeta(to) {
+    const { buffer, length, finished, destroyed, pos } = this;
+    to.destroyed = destroyed;
+    to.finished = finished;
+    to.length = length;
+    to.pos = pos;
+    if (pos)
+      to.buffer.set(buffer);
+    return to;
+  }
+  clone() {
+    return this._cloneInto();
+  }
+};
+var SHA256_IV = /* @__PURE__ */ Uint32Array.from([
+  1779033703,
+  3144134277,
+  1013904242,
+  2773480762,
+  1359893119,
+  2600822924,
+  528734635,
+  1541459225
+]);
+
+// ../../node_modules/@noble/hashes/sha2.js
+var SHA256_K = /* @__PURE__ */ Uint32Array.from([
+  1116352408,
+  1899447441,
+  3049323471,
+  3921009573,
+  961987163,
+  1508970993,
+  2453635748,
+  2870763221,
+  3624381080,
+  310598401,
+  607225278,
+  1426881987,
+  1925078388,
+  2162078206,
+  2614888103,
+  3248222580,
+  3835390401,
+  4022224774,
+  264347078,
+  604807628,
+  770255983,
+  1249150122,
+  1555081692,
+  1996064986,
+  2554220882,
+  2821834349,
+  2952996808,
+  3210313671,
+  3336571891,
+  3584528711,
+  113926993,
+  338241895,
+  666307205,
+  773529912,
+  1294757372,
+  1396182291,
+  1695183700,
+  1986661051,
+  2177026350,
+  2456956037,
+  2730485921,
+  2820302411,
+  3259730800,
+  3345764771,
+  3516065817,
+  3600352804,
+  4094571909,
+  275423344,
+  430227734,
+  506948616,
+  659060556,
+  883997877,
+  958139571,
+  1322822218,
+  1537002063,
+  1747873779,
+  1955562222,
+  2024104815,
+  2227730452,
+  2361852424,
+  2428436474,
+  2756734187,
+  3204031479,
+  3329325298
+]);
+var SHA256_W = /* @__PURE__ */ new Uint32Array(64);
+var SHA2_32B = class extends HashMD {
+  // We cannot use array here since array allows indexing by variable
+  // which means optimizer/compiler cannot use registers.
+  // Numeric initializers matter: starting the fields as `undefined` changes
+  // V8's field representation and makes sha256 3x slower (measured).
+  A = 0;
+  B = 0;
+  C = 0;
+  D = 0;
+  E = 0;
+  F = 0;
+  G = 0;
+  H = 0;
+  constructor(outputLen, IV) {
+    super(64, outputLen, 8, false);
+    this.A = IV[0] | 0;
+    this.B = IV[1] | 0;
+    this.C = IV[2] | 0;
+    this.D = IV[3] | 0;
+    this.E = IV[4] | 0;
+    this.F = IV[5] | 0;
+    this.G = IV[6] | 0;
+    this.H = IV[7] | 0;
+  }
+  get() {
+    const { A, B, C, D, E, F, G, H } = this;
+    return [A, B, C, D, E, F, G, H];
+  }
+  // prettier-ignore
+  set(A, B, C, D, E, F, G, H) {
+    this.A = A | 0;
+    this.B = B | 0;
+    this.C = C | 0;
+    this.D = D | 0;
+    this.E = E | 0;
+    this.F = F | 0;
+    this.G = G | 0;
+    this.H = H | 0;
+  }
+  _cloneInto(to) {
+    (to ||= new this.constructor()).set(...this.get());
+    return this._cloneIntoMeta(to);
+  }
+  process(view, offset) {
+    for (let i = 0; i < 16; i++, offset += 4)
+      SHA256_W[i] = view.getUint32(offset, false);
+    for (let i = 16; i < 64; i++) {
+      const W15 = SHA256_W[i - 15];
+      const W2 = SHA256_W[i - 2];
+      const s0 = rotr(W15, 7) ^ rotr(W15, 18) ^ W15 >>> 3;
+      const s1 = rotr(W2, 17) ^ rotr(W2, 19) ^ W2 >>> 10;
+      SHA256_W[i] = s1 + SHA256_W[i - 7] + s0 + SHA256_W[i - 16] | 0;
+    }
+    let { A, B, C, D, E, F, G, H } = this;
+    for (let i = 0; i < 64; i++) {
+      const sigma1 = rotr(E, 6) ^ rotr(E, 11) ^ rotr(E, 25);
+      const T1 = H + sigma1 + Chi(E, F, G) + SHA256_K[i] + SHA256_W[i] | 0;
+      const sigma0 = rotr(A, 2) ^ rotr(A, 13) ^ rotr(A, 22);
+      const T2 = sigma0 + Maj(A, B, C) | 0;
+      H = G;
+      G = F;
+      F = E;
+      E = D + T1 | 0;
+      D = C;
+      C = B;
+      B = A;
+      A = T1 + T2 | 0;
+    }
+    A = A + this.A | 0;
+    B = B + this.B | 0;
+    C = C + this.C | 0;
+    D = D + this.D | 0;
+    E = E + this.E | 0;
+    F = F + this.F | 0;
+    G = G + this.G | 0;
+    H = H + this.H | 0;
+    this.set(A, B, C, D, E, F, G, H);
+  }
+  roundClean() {
+    clean(SHA256_W);
+  }
+  destroy() {
+    this.destroyed = true;
+    this.set(0, 0, 0, 0, 0, 0, 0, 0);
+    clean(this.buffer);
+  }
+};
+var _SHA256 = class extends SHA2_32B {
+  constructor() {
+    super(32, SHA256_IV);
+  }
+};
+var sha256 = /* @__PURE__ */ createHasher(
+  () => new _SHA256(),
+  /* @__PURE__ */ oidNist(1)
+);
+
+// ../shared/src/receipt.ts
+function jcs(v) {
+  if (v === null || typeof v !== "object") return JSON.stringify(v);
+  if (Array.isArray(v)) return `[${v.map(jcs).join(",")}]`;
+  const o = v;
+  return `{${Object.keys(o).filter((k) => o[k] !== void 0).sort().map((k) => `${JSON.stringify(k)}:${jcs(o[k])}`).join(",")}}`;
+}
+var enc = new TextEncoder();
+var sha256Hex = (data) => bytesToHex(sha256(typeof data === "string" ? enc.encode(data) : data));
+function decodeBytes(s) {
+  const t = s.replace(/^0x/, "").replace(/^(ed25519|sha256):/, "");
+  if (/^[0-9a-fA-F]+$/.test(t) && t.length % 2 === 0) return Uint8Array.from(t.match(/../g).map((h) => parseInt(h, 16)));
+  const b64 = t.replace(/-/g, "+").replace(/_/g, "/");
+  const bin = atob(b64 + "=".repeat((4 - b64.length % 4) % 4));
+  return Uint8Array.from(bin, (c) => c.charCodeAt(0));
+}
+var sameHash = (a, b) => typeof a === "string" && a.replace(/^(sha256:|0x)/, "").toLowerCase() === b.toLowerCase();
+function findEvent(log, name) {
+  if (!Array.isArray(log)) return void 0;
+  return log.find((e) => [e?.type, e?.event, e?.name, e?.kind].includes(name));
+}
+var pick2 = (o, ...paths) => {
+  for (const p of paths) {
+    const v = p.split(".").reduce((a, k) => a == null ? a : a[k], o);
+    if (v !== void 0 && v !== null) return v;
+  }
+  return void 0;
+};
+function verifyReceipt(p) {
+  const checks = [];
+  const { receipt, attestation } = p;
+  const keyset = pick2(attestation, "workload_keyset", "keyset");
+  const stated = pick2(attestation, "workload_keyset_digest", "keyset_digest");
+  const digest = keyset ? sha256Hex(jcs(keyset)) : "";
+  checks.push({ id: "keyset", label: "Attested signing keys are intact", ok: !!keyset && sameHash(stated, digest), detail: stated ? String(stated) : "no keyset in attestation" });
+  const keys = keyset?.receipt_signing_keys ?? keyset?.keys ?? [];
+  const key = keys.find((k) => k?.key_id === receipt?.key_id) ?? (keys.length === 1 ? keys[0] : void 0);
+  let sigOk = false;
+  try {
+    if (key && typeof receipt?.signature === "string") {
+      const { signature, ...unsigned } = receipt;
+      sigOk = import_tweetnacl2.default.sign.detached.verify(enc.encode(jcs(unsigned)), decodeBytes(signature), decodeBytes(String(key.public_key)));
+    }
+  } catch {
+    sigOk = false;
+  }
+  checks.push({ id: "signature", label: "Receipt is signed by an attested key", ok: sigOk, detail: key ? `${key.algo ?? "ed25519"} key ${key.key_id ?? ""}`.trim() : "signing key not in attestation" });
+  checks.push({ id: "link", label: "Receipt and attestation name the same keys", ok: sameHash(receipt?.workload_keyset_digest, digest) });
+  const respEv = findEvent(receipt?.event_log, "response.returned");
+  const respHash = pick2(respEv, "body_hash", "data.body_hash", "payload.body_hash");
+  checks.push(
+    p.responseBody === void 0 ? { id: "response", label: "Response matches what you received", ok: null, detail: "no response body given" } : { id: "response", label: "Response matches what you received", ok: sameHash(respHash, sha256Hex(p.responseBody)) }
+  );
+  const up = findEvent(receipt?.event_log, "upstream.verified");
+  const result = pick2(up, "result", "data.result", "payload.result");
+  const sessionId = pick2(up, "session_id", "data.session_id", "payload.session_id");
+  checks.push({ id: "enclave", label: "Model ran in a verified enclave", ok: result === "verified", detail: result ? String(result) : "no upstream verification event" });
+  const hard = checks.filter((c) => c.ok !== null);
+  return { verified: hard.every((c) => c.ok), checks, sessionId: sessionId ? String(sessionId) : void 0, claims: pick2(attestation, "claims") };
+}
+function newNonce() {
+  const b = new Uint8Array(32);
+  globalThis.crypto.getRandomValues(b);
+  return bytesToHex(b);
+}
+
 // src/index.ts
 import { homedir } from "node:os";
 import { join } from "node:path";
-var VERSION = "0.1.0";
+var VERSION = "0.2.0";
 var text = (s) => ({ content: [{ type: "text", text: s }] });
 var fail = (e) => ({ content: [{ type: "text", text: e instanceof SirError ? `$SIR gateway: ${e.message}` : String(e?.message ?? e) }], isError: true });
 var usd = (n) => `$${Number(n ?? 0).toFixed(Number(n) < 1 ? 4 : 2)}`;
@@ -24031,6 +24523,145 @@ function createServer(env = process.env, fetchImpl) {
 
 [${r.model} \xB7 ${r.usage.prompt_tokens ?? 0} in / ${r.usage.completion_tokens ?? 0} out tokens]` : "";
         return text(r.text + u);
+      } catch (e) {
+        return fail(e);
+      }
+    }
+  );
+  server.registerTool(
+    "sir_ask_private",
+    {
+      title: "Ask privately (TEE)",
+      description: "Send a prompt to a model running inside a hardware enclave (GPU TEE). The provider can't read it, and the answer comes with a signed receipt that this tool verifies locally against a fresh attestation. Use for anything sensitive: keys, customer data, private code.",
+      inputSchema: {
+        prompt: external_exports.string().min(1).describe("The full prompt. The model sees nothing else."),
+        model: external_exports.string().optional().describe("A private model id from sir_models. Defaults to sir-private."),
+        max_tokens: external_exports.number().int().min(16).max(32e3).optional()
+      }
+    },
+    async ({ prompt, model, max_tokens }) => {
+      try {
+        needBase();
+        const r = await sir.askPrivate({ prompt, model, maxTokens: max_tokens });
+        let verdict = "No receipt came back, so this answer is not verified.";
+        if (r.receiptId) {
+          const [receipt, attestation] = await Promise.all([sir.receipt(r.receiptId), sir.attestation(newNonce())]);
+          const v = verifyReceipt({ receipt, attestation, responseBody: r.raw });
+          verdict = [
+            v.verified ? `Receipt ${r.receiptId}: verified.` : `Receipt ${r.receiptId}: NOT verified.`,
+            ...v.checks.map((c) => `  ${c.ok === null ? "-" : c.ok ? "ok" : "FAILED"}  ${c.label}`),
+            ...v.sessionId ? [`  enclave session ${v.sessionId}`] : []
+          ].join("\n");
+        }
+        return text(`${r.text}
+
+${verdict}`);
+      } catch (e) {
+        return fail(e);
+      }
+    }
+  );
+  server.registerTool(
+    "sir_web_search",
+    {
+      title: "Search the web",
+      description: "Web search through $SIR, billed to the balance (about $0.002 for 5 results). With scrape=true each result page comes back as markdown too.",
+      inputSchema: {
+        query: external_exports.string().min(1),
+        limit: external_exports.number().int().min(1).max(20).optional().describe("Results, default 5."),
+        scrape: external_exports.boolean().optional().describe("Also read each page. Costs a page each."),
+        max_cost: external_exports.number().positive().optional().describe("Refuse if the quote is above this many dollars.")
+      }
+    },
+    async (a) => {
+      try {
+        needBase();
+        const r = await sir.tool("web.search", a);
+        const lines = (r.result?.results ?? []).map((x, i) => `${i + 1}. ${x.title}
+   ${x.url}
+   ${x.description ?? ""}${x.markdown ? `
+
+${x.markdown}
+` : ""}`);
+        return text(`${lines.join("\n") || "No results."}
+
+[cost $${r.cost?.usd}]`);
+      } catch (e) {
+        return fail(e);
+      }
+    }
+  );
+  server.registerTool(
+    "sir_web_read",
+    {
+      title: "Read a web page",
+      description: "Fetch one URL as clean markdown through $SIR (about $0.001).",
+      inputSchema: { url: external_exports.string().url(), links: external_exports.boolean().optional().describe("Also list the links on the page.") }
+    },
+    async (a) => {
+      try {
+        needBase();
+        const r = await sir.tool("web.scrape", a);
+        const res = r.result ?? {};
+        return text(`# ${res.title ?? res.url}
+${res.url}
+
+${res.markdown ?? ""}${res.links?.length ? `
+
+Links:
+${res.links.slice(0, 100).join("\n")}` : ""}
+
+[cost $${r.cost?.usd}]`);
+      } catch (e) {
+        return fail(e);
+      }
+    }
+  );
+  server.registerTool(
+    "sir_x",
+    {
+      title: "X (Twitter) data",
+      description: "Public X data through $SIR, at about $0.0002 a post or profile. action=search (query with X operators, or handle for an account's latest posts), profile (handles), or lookup (post ids or URLs, with live likes and views).",
+      inputSchema: {
+        action: external_exports.enum(["search", "profile", "lookup"]),
+        query: external_exports.string().optional(),
+        handle: external_exports.string().optional(),
+        handles: external_exports.array(external_exports.string()).max(10).optional(),
+        ids: external_exports.array(external_exports.string()).max(20).optional(),
+        sort: external_exports.enum(["Latest", "Top"]).optional(),
+        cursor: external_exports.string().optional()
+      }
+    },
+    async ({ action, ...a }) => {
+      try {
+        needBase();
+        const name = action === "search" ? "x.search" : action === "profile" ? "x.profile" : "x.lookup";
+        const args = action === "search" ? { query: a.query, handle: a.handle, sort: a.sort, cursor: a.cursor } : action === "profile" ? { handles: a.handles ?? (a.handle ? [a.handle] : []) } : { ids: a.ids ?? [] };
+        const r = await sir.tool(name, Object.fromEntries(Object.entries(args).filter(([, v]) => v !== void 0)));
+        return text(`${JSON.stringify(r.result, null, 2)}
+
+[cost $${r.cost?.usd}]`);
+      } catch (e) {
+        return fail(e);
+      }
+    }
+  );
+  server.registerTool(
+    "sir_points",
+    {
+      title: "$SIR points",
+      description: "This wallet's points this season, its rank and where they came from.",
+      inputSchema: {}
+    },
+    async () => {
+      try {
+        needBase();
+        const p = await sir.points();
+        const b = p.breakdown ?? {};
+        return text([
+          `${p.season?.name}: ${Number(p.total).toLocaleString()} points${p.rank ? `, rank #${p.rank}` : ""}`,
+          `  AI use ${Number(b.usage ?? 0).toLocaleString()} \xB7 holding ${Number(b.hold ?? 0).toLocaleString()} \xB7 referrals ${Number(b.referral ?? 0).toLocaleString()}`
+        ].join("\n"));
       } catch (e) {
         return fail(e);
       }

@@ -1,6 +1,6 @@
 {
   "name": "sir-mcp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "MCP server for $SIR: models, balance, second opinions and setup for AI coding tools.",
   "type": "module",
   "bin": { "sir-mcp": "sir/server/sir-mcp.mjs" },

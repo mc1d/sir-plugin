@@ -17,7 +17,10 @@ claude
 | `sir_models` | Every model on the gateway, its lab and list price |
 | `sir_ask` | Ask any model: second opinions from GPT, Gemini or DeepSeek, cheap bulk work on `sir-base` |
 | `sir_balance`, `sir_usage` | What the key can spend, and 30 days of spend by model |
-| `sir_referral` | Your referral link and commission |
+| `sir_ask_private` | Ask a model running in a hardware enclave; the signed receipt is verified on your machine |
+| `sir_web_search`, `sir_web_read` | Web search and page reading, billed to the same balance |
+| `sir_x` | Live X data: search, profiles, posts with their current likes and views |
+| `sir_referral`, `sir_points` | Your referral link and commission, your season points and rank |
 | `sir_setup` | Config for Cursor, Codex, Cline, Aider, opencode, Claude Desktop and any OpenAI SDK |
 | `sir_wallet_key` | Make a key by signing locally with a Solana keypair. No sign-up |
 | `/sir:setup` | Point Claude Code itself at $SIR, so every request is billed there |
