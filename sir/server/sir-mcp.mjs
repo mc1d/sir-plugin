@@ -23752,7 +23752,7 @@ Models: Settings -> Models -> OpenAI API Key: your sk-sir key. Turn on "Override
 Add custom models: ${model}, sir-frontier-plus, sir-base
 
 Tools (~/.cursor/mcp.json):
-  { "mcpServers": { "sir": { "command": "npx", "args": ["-y", "sir-mcp"], "env": { "SIR_API_KEY": "<your sk-sir key>", "SIR_BASE_URL": "${v1}" } } } }`;
+  { "mcpServers": { "sir": { "command": "npx", "args": ["-y", "github:mc1d/sir-plugin"], "env": { "SIR_API_KEY": "<your sk-sir key>", "SIR_BASE_URL": "${v1}" } } } }`;
     case "codex":
       return `Codex CLI (~/.codex/config.toml)
   model = "${model}"
@@ -23766,7 +23766,7 @@ Tools (~/.cursor/mcp.json):
 
   [mcp_servers.sir]
   command = "npx"
-  args = ["-y", "sir-mcp"]
+  args = ["-y", "github:mc1d/sir-plugin"]
   env = { SIR_BASE_URL = "${v1}" }
 
 Then: export SIR_API_KEY=<your sk-sir key>`;
@@ -23793,7 +23793,7 @@ Model ID: ${model}`;
   }`;
     case "claude-desktop":
       return `Claude Desktop (claude_desktop_config.json)
-  { "mcpServers": { "sir": { "command": "npx", "args": ["-y", "sir-mcp"], "env": { "SIR_API_KEY": "<your sk-sir key>", "SIR_BASE_URL": "${v1}" } } } }`;
+  { "mcpServers": { "sir": { "command": "npx", "args": ["-y", "github:mc1d/sir-plugin"], "env": { "SIR_API_KEY": "<your sk-sir key>", "SIR_BASE_URL": "${v1}" } } } }`;
     case "sdk":
       return `Any OpenAI-compatible SDK
   OPENAI_BASE_URL=${v1}
