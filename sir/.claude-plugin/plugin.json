@@ -1,0 +1,7 @@
+{
+  "name": "sir",
+  "version": "0.1.0",
+  "description": "$SIR in Claude Code: balance, models, second opinions from other labs, usage, referrals and one-step billing setup.",
+  "author": { "name": "Superintelligence Reserve" },
+  "keywords": ["ai", "inference", "solana", "credits", "mcp"]
+}

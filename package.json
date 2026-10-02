@@ -1,0 +1,11 @@
+{
+  "name": "sir-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for $SIR: models, balance, second opinions and setup for AI coding tools.",
+  "type": "module",
+  "bin": { "sir-mcp": "sir/server/sir-mcp.mjs" },
+  "files": ["sir/server/sir-mcp.mjs"],
+  "engines": { "node": ">=20" },
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/mc1d/sir-plugin.git" }
+}

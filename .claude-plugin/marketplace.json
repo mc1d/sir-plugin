@@ -1,0 +1,13 @@
+{
+  "name": "sir",
+  "owner": { "name": "Superintelligence Reserve" },
+  "metadata": { "description": "$SIR for Claude Code: frontier models below list price, billed to your $SIR balance." },
+  "plugins": [
+    {
+      "name": "sir",
+      "source": "./sir",
+      "description": "Check your $SIR balance, get second opinions from GPT, Gemini and DeepSeek, see usage and referral earnings, and switch Claude Code's billing to $SIR.",
+      "version": "0.1.0"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "sir": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/server/sir-mcp.mjs"],
+      "env": {
+        "SIR_API_KEY": "${SIR_API_KEY:-}",
+        "SIR_BASE_URL": "${SIR_BASE_URL:-}",
+        "SIR_SITE_URL": "${SIR_SITE_URL:-}"
+      }
+    }
+  }
+}
